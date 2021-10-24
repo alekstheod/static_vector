@@ -26,7 +26,7 @@ namespace nstl {
 
         template< typename T, std::size_t Sz >
         struct memory_storage {
-            std::aligned_storage< Sz, alignof(T) > m_memory[Sz];
+            std::aligned_storage_t< sizeof(T), alignof(T) > m_memory[Sz];
             memory_resource resource{&m_memory[0]};
             using allocator = std::pmr::polymorphic_allocator< T >;
             allocator m_allocator{&resource};
