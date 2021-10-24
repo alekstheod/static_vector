@@ -4,6 +4,7 @@
 
 namespace nstl {
     namespace detail {
+        template< std::size_t Sz >
         class memory_resource : public std::pmr::memory_resource {
           public:
             memory_resource(void* memory) : m_memory{memory} {
@@ -11,6 +12,10 @@ namespace nstl {
 
           private:
             void* do_allocate(std::size_t bytes, std::size_t alignment) override {
+                if(bytes > (Sz * alignment)) {
+                    std::abort(); // do not allow allocations more than in static memory
+                }
+
                 return m_memory;
             }
 
@@ -27,7 +32,7 @@ namespace nstl {
         template< typename T, std::size_t Sz >
         struct memory_storage {
             std::aligned_storage_t< sizeof(T), alignof(T) > m_memory[Sz];
-            memory_resource resource{&m_memory[0]};
+            memory_resource< Sz > resource{&m_memory[0]};
             using allocator = std::pmr::polymorphic_allocator< T >;
             allocator m_allocator{&resource};
         };
