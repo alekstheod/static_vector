@@ -57,6 +57,7 @@ namespace nstl {
                           "Others vector size can't be bigger that the current "
                           "one.");
             base::reserve(Sz);
+            insert(end(), std::cbegin(other), std::cend(other));
         }
 
         static_vector(const std::initializer_list< T >& init_list)
@@ -75,6 +76,7 @@ namespace nstl {
         static_vector& operator=(const static_vector< T, Sz >& other) {
             base::clear();
             insert(end(), std::cbegin(other), std::cend(other));
+            return *this;
         }
 
         using base::begin;
