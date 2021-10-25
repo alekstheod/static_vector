@@ -48,21 +48,34 @@ namespace nstl {
       public:
         static_vector() : base{storage::m_allocator} {
             base::reserve(Sz);
-        };
+        }
 
+        template< std::size_t OtherSz >
+        static_vector(const static_vector< T, OtherSz >& other)
+         : base{storage::m_allocator} {
+            static_assert(OtherSz <= Sz,
+                          "Others vector size can't be bigger that the current "
+                          "one.");
+            base::reserve(Sz);
+        }
 
         static_vector(const std::initializer_list< T >& init_list)
          : base{storage::m_allocator} {
             base::reserve(Sz);
             insert(end(), std::cbegin(init_list), std::cend(init_list));
-        };
+        }
 
         template< typename Iterator >
         static_vector(Iterator first, Iterator last)
          : base{storage::m_allocator} {
             base::reserve(Sz);
             insert(end(), first, last);
-        };
+        }
+
+        static_vector& operator=(const static_vector< T, Sz >& other) {
+            base::clear();
+            insert(end(), std::cbegin(other), std::cend(other));
+        }
 
         using base::begin;
         using base::cbegin;
