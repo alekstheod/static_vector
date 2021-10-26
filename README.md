@@ -9,7 +9,7 @@ of the heap. Additionally there is a limitation of the size of the vector.
 example:
 
 ```cpp
-nstl::vector<int, 10> v{1,2,3,4};
+nstl::static_vector<int, 10> v{1,2,3,4};
 v.push_back(5);
 
 for(int a: v){
