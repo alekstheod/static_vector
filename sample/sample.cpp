@@ -9,8 +9,8 @@ int main(int argc, char* argv[]) {
     }
 
     nstl::static_vector< int, 10 > other = v;
-    for(auto i : v) {
-        std::cout << i << std::endl;
+    for(auto i = 0U; i < other.size(); i++) {
+        std::cout << other[i] << std::endl;
     }
     return 0;
 }

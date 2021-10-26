@@ -79,13 +79,21 @@ namespace nstl {
             return *this;
         }
 
+        constexpr std::size_t capacity() const {
+            return Sz;
+        }
+
         using base::begin;
         using base::cbegin;
         using base::cend;
+        using base::const_iterator;
         using base::end;
+        using base::erase;
         using base::insert;
+        using base::iterator;
         using base::push_back;
         using base::size;
-        using base::operator=;
+        using base::value_type;
+        using base::operator[];
     };
 } // namespace nstl
