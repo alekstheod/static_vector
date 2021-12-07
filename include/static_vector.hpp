@@ -1,3 +1,5 @@
+#pragma once
+
 #include <initializer_list>
 #include <memory_resource>
 #include <vector>
